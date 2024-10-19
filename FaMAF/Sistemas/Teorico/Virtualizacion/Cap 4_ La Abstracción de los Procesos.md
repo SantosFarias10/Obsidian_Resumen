@@ -22,7 +22,7 @@ Figura 4.1: ***Cargando***: De un Programa a Proceso.
 ### ¿Como se transforma un programa (estático) a un proceso dinámico?
 
 1.  Carga el código y Data estática en la memoria en el espacio direccionable. Los programas residen en un disco en algún formato ejecutable, el ***SO lee**** esos bytes ***y los pone en la memoria***.
-2.  Se hace `allo()` de la memoria para el run-time stack. El SO asigna la memoria y se la da al proceso e inicializa el stack con argumentos (como `argc` y `argv`).
+2.  Se hace `alloc()` de la memoria para el run-time stack. El SO asigna la memoria y se la da al proceso e inicializa el stack con argumentos (como `argc` y `argv`).
 3.  Se hacen otras inicializaciones relacionadas con el ***Input / Output*** (I/O)
 4.  Le queda empezar a correr el programa desde el main(). El SO le transfiere el control de la CPU al recién creado proceso y así el programa comienza su ejecución.
 

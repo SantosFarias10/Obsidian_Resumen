@@ -1,4 +1,4 @@
-- Una vez que uno sabe que **operaciones** quiere contar, debe imaginar una ejecución arbitraria, genérica del programa intentando contar el numero de veces que esa ejecución arbitraria realizara **dicha ejecución** 
+-  Una vez que uno sabe que **operaciones** quiere contar, debe imaginar una ejecución arbitraria, genérica del programa intentando contar el numero de veces que esa ejecución arbitraria realizara **dicha ejecución** 
 
 ## Secuencia de Comandos
 - Una secuencia de comandos se ejecuta de manera secuencial, del primero al ultimo

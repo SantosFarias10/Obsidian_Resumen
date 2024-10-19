@@ -19,25 +19,35 @@
 ### Pseudocódigo
 
 *{Pre: $n≥0 ∧ a = A$ }*
-**Proc** Selection_sort (**in/out** a: **array** [1..n] **of T**)
-	**var** i, minp: **nat**
+``` LenguajeDeLaMateria
+Proc Selection_sort (in/out a: array [1..n] of T)
+	var i, minp: nat
 	i := 1          {Inv: Invariante de recién}
-	**do** $i<n$ --->
-		minp := [min_pos_from](FuncionDeSeleccion.md)(a, i)
-		[swap](swap.md)(a, i, minp)
+	do i<n --->
+		minp := min_pos_from(a, i)
+		swap(a, i, minp)
 		i  := i+1
-	**od**
-**end proc**
+	od
+end proc
+```
 *{Post: 'a' está ordenado y es permutación de A}*
+#### Funciones Auxiliares
+- [min_pos_from](FuncionDeSeleccion.md)
+- [swap](swap.md)
 
 Con el [[Comando For]]
-**Proc** Selection_sort(**in/out** a: **array** [1..n] **of T**)
-	**var** minp: **nat**
-	**for** $i:= 1$ **to** n-1 **do**
-		minp:= [min_pos_from](FuncionDeSeleccion.md)(a, i)
-		[swap](swap.md)(a, i, minp)
-	**od**
-**end proc**
+```LenguajeDeLaMateria
+Proc Selection_sort(in/out a: array [1..n] of T)
+	var minp: nat
+	for i:= 1 to n-1 do
+		minp:= min_pos_from(a, i)
+		swap(a, i, minp)
+	od
+end proc
+```
+#### Funciones Auxiliares
+- [min_pos_from](FuncionDeSeleccion.md)
+- [swap](swap.md)
 
 ### Invariante de la función de selección 
 

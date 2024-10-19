@@ -1,13 +1,16 @@
 Fragmento de la siguiente forma también aparecen con cierta frecuencia:
-
+```LenguajeDeLaMateria
 k:= m
-**do** $k≥n$ --->
+do k ≥ n --->
 	C
 	k:= k-1
-**od**
+od
+```
 
 por simplicidad, lo reemplazaremos por 
 
-**For** k:= m **downto** n **do** C **od** 
+```LenguajeDeLaMateria
+For k:= m downto n do C od 
+```
 
 Siempre que **k** no se modifique en **C**
