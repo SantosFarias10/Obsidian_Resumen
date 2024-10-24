@@ -10,32 +10,14 @@ En cada ciclo de medición las operaciones (de I/O o de cómputo) se ejecutarán
 
 Utilizando el largo de quantum 10 veces más pequeño que el original y un valor de N constante, medir cuántas veces son planificados los procesos en los siguientes escenarios:
 
-1. iobench N &
-    
-2. iobench N &; iobench N &; iobench N &
-    
-3. cpubench N &
-    
-4. cpubench N &; cpubench N &; cpubench N &
-    
-5. iobench N &; cpubench N &; cpubench N &; cpubench N &
-    
-6. cpubench N &; iobench N &; iobench N &; iobench N &
+1. `iobench N &`
+2. `iobench N &; iobench N &; iobench N &`
+3. `cpubench N &`
+4. `cpubench N &; cpubench N &; cpubench N &`
+5. `iobench N &; cpubench N &; cpubench N &; cpubench N &`
+6. `cpubench N &; iobench N &; iobench N &; iobench N &`
 
 Otra forma de hacer estos experimentos es utilizando sólo la salida de uno de ellos. En este caso medimos la performance de un proceso en particular dado los otros procesos del entorno. Eso se puede realizar con un comando como  
 
-iobench 3 | iobench 3 | iobench 3 &
-
-cpubench 3 | cpubench 3 | cpubench 3 &
-
-Responder las siguientes preguntas utilizando gráficos y/o tablas para justificar sus respuestas:
-
-1. Describa los parámetros de los programas cpubench e iobench para este experimento (o sea, los define al principio y el valor de N. Tener en cuenta que podrían cambiar en experimentos futuros, pero que si lo hacen los resultados ya no serán comparables).
-    
-2. ¿Los procesos se ejecutan en paralelo? ¿En promedio, qué proceso o procesos se ejecutan primero? Hacer una observación cualitativa.
-    
-3. ¿Cambia el rendimiento de los procesos iobound con respecto a la cantidad y tipo de procesos que se estén ejecutando en paralelo? ¿Por qué?
-    
-4. ¿Cambia el rendimiento de los procesos cpubound con respecto a la cantidad y tipo de procesos que se estén ejecutando en paralelo? ¿Por qué?
-    
-5. ¿Es adecuado comparar la cantidad de operaciones de cpu con la cantidad de operaciones iobound?
+`iobench 3 | iobench 3 | iobench 3 &`
+`cpubench 3 | cpubench 3 | cpubench 3 &`

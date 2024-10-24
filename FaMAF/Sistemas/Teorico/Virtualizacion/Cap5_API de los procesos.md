@@ -1,6 +1,6 @@
 ***¡¡¡¡¡Este capitulo sirve mucho para hacer los labs!!!!!!!***
 
-### System Call `fork()`
+## System Call `fork()`
 
 `fork()` es usada para crear un nuevo proceso
 
@@ -51,7 +51,7 @@ prompt>
 ```
 El ***planificador*** del CPU (de ahora en mas CPU `scheduler`) es el que determina que proceso se ejecutara en un tiempo determinado; como el scheduler es complejo, usualmente no podremos asumir que decisión tomara, y que proceso se ejecutara primero.
 
-### System Call `wait()`
+## System Call `wait()`
 
 A veces, resulta mas útil que el padre espere a que el proceso hijo finalice lo que estaba haciendo. Esta tarea se logra con la system call `wait()` 
 
@@ -94,7 +94,7 @@ El proceso padre llama a `wait()` para retrasar su ejecución hasta que el hijo 
 Agregando la llamada `wait()` en el código hace que la salida sea determinista.
 En el código, sabemos que el hijo siempre imprimirá primero, ya que si primero se ejecuta el padre, antes de imprimir llama a `wait()`; y la system call no retornara hasta que el hijo no finalice, y solo entonces continua su ejecución e imprime por pantalla.
 
-### System Call `exec()`
+## System Call `exec()`
 
 Esta system call es útil cuando queremos poner en ejecución un programa que (es diferente desde el programa de llamadas¿?)(that is different from the calling program). Por ejemplo: llamando a `fork()` en `p2.c` es solo útil si queremos mantener en ejecución copias del mismo programa. Sin embargo, a menudo vamos a querer ejecutar un programa diferente un programa, y `exec()` hace justo eso.
 
@@ -146,7 +146,7 @@ prompt>
 El proceso hijo llama a `execvp()` para ejecutar el programa `wc`, el cual es un programa contador de palabras (word counter).
 Dado el nombre de un ejecutable (por ejemplo: `wc`), y algunos argumentos (por ejemplo: ***p3.c***), carga el código y los datos estáticos de ese ejecutable y sobrescribe su segmento de código actual (y sus datos estáticos) con el nuevo programa; el ***heap*** y el ***stack*** y otras partes del espacio de memoria del programa son re-inicializadas. Entonces el SO simplemente ejecuta ese programa, pasandole todos los argumentos como el `argv` del proceso. Por lo tanto, esta system call no crea un nuevo proceso; mas bien, transforma el actual programa en ejecución (antes ***p3***) en diferentes programas en ejecución (`wc`). Después de la llamada a `exec()`, es como si ***p3*** nunca se hubiera ejecutado; una llamada exitosa a `exec()` ***NUNCA RETORNA***.
 
-### ¿Porque? Motivación de la API
+## ¿Porque? Motivación de la API
 
 La separación de `fork()` y `exec()` es esencial para la ***construcción*** de una ***shell UNIX***, porque esto le permite al shell ejecutar código ***después*** de la llamada `fork()` pero ***antes*** de la llamada `exec()`.
 El ***shell*** es solo un programa de usuario. Te muestra un ***prompt*** y entonces espera a que tipees algo. Entonces tipeas un comando (o sea un programa ejecutable, mas cualquier argumento), llama a `fork()` para crear un nuevo proceso hijo para ejecutar el comando, llama a alguna variante de `exec()` para poner en ejecución el comando, y entonces espera que el comando complete su ejecución llamando a `wait()`. Cuando el hijo termina, el shell regresa del `wait()` e imprime de nuevo el ***prompt***, listo para el siguiente comando.
@@ -208,12 +208,12 @@ prompt>
  2. Cuando ejecutamos `cat` con el archivo de salida, se imprime toda la salida esperada del `wc`.
 Los ***pipes*** de UNIX son implementados de una forma similar, pero con la system call `pipe()`. En este caso, la salida de uno de los procesos es conectada a un ***in-kernel pipe***, o sea a una cola, y la entrada de otro proceso es conectada al mismo pipe; por lo tanto, la salida de un proceso aparenta ser usada como la entrada del siguiente, y una larga y útil cadena de comandos pueden ser insertadas juntas. como un ejemplo simple, consideremos buscar una palabra en un archivo, y contar cuantas veces esta esa palabra; los pipes y la utilidades `grep` y `wc`, es fácil; solo hay que tipear `grep -o foo file | wc -l` en un command prompt
 
-### Usuarios y Control de procesos
+## Usuarios y Control de procesos
 
 Existen otras formas de interactuar con los procesos. Por ejemplo: la system call `kill()`, es usada para enviar señales a un proceso, incluyendo directivas como pausar, morir, y otros imperativos útiles. En muchas shell de UNIX ciertas combinaciones de teclas son especificadas para llevar una señal especifica al actual proceso en ejecución; por ejemplo: `control + c` envía una señal ***SIGINT*** (interrumpir) al proceso (normalmente terminandolo) y `control + z` envía una señal ***SIGTSTP*** (stop) pausando el proceso en el medio de la ejecución.
 ¿Quien puede enviar una señal a un proceso, y quien no?. Los sistemas que usamos pueden tener múltiples personas unsandolos al mismo tiempo; si una de esas personas puede arbitrariamente enviar señales como ***SIGINT*** para interrumpir el proceso, la usabilidad y seguridad del sistema estaría comprometida. Como resultado, los sistemas modernos incluyen una fuerte concepción de la noción de ***usuario***. El usuario, después de ingresar un contraseña para establecer credenciales, inicia sesión para ganar accesos a los recursos del sistema. Entonces el usuario puede ejecutar uno o muchos procesos, y ejercer control total sobre ellos (pausarlos, matarlos, etc). Los ***usuarios*** generalmente solo pueden controlar sus propios procesos; el trabajo del OS es repartir recursos a cada usuario para cumplir con los objetivos generales del sistema.
 
-### Herramientas útiles
+## Herramientas útiles
 
 - Usando el comando `ps` pueden ver que proceso se están ejecutando (leer la **man pages*** para ver algunas ***flags*** útiles).
 - La herramienta `top` muestra por pantalla los procesos del sistema y cuanta CPU y otros recursos están usando.

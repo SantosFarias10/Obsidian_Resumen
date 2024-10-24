@@ -9,7 +9,7 @@
 - [x] [[Instalación xv6]]
 - [x] Primera Parte: Estudiando el planificador de xv6-riscv
 - [ ] Segunda Parte: Medir operaciones de cómputo y de entrada/salida
-	- [ ] Experimento 1: ¿Cómo son planificados los programas iobound y cpubound?
+	- [x] Experimento 1: ¿Cómo son planificados los programas iobound y cpubound?
 	- [ ] Experimento 2: ¿Qué sucede cuando cambiamos el largo del quantum?
 - [ ] Tercera Parte: Asignar prioridad a los procesos
 - [ ] Cuarta Parte: Implementar MLFQ
@@ -26,8 +26,8 @@ El planificador apropiativo de `xv6-riscv` utiliza un algoritmo sencillo para di
 # Implementación
 - Primera Parte: [[Estudiando el Planificador de xv6-riscv]].
 - Segunda Parte: [[Medir operaciones de cómputo y de IO]].
-	- [[Experimeton 1 ¿Cómo son planificados los programas iobound y cpubound?]].
-	- Experimento 2: [[¿Qué sucede cuando cambiamos el largo del quantum?]].
+	- [[Experimento 1 ¿Cómo son planificados los programas iobound y cpubound?]].
+	- [[Experimento 2 ¿Qué sucede cuando cambiamos el largo del quantum?]].
 - Tercera Parte: [[Asignar prioridad a los procesos]].
 - Cuarta Parte: [[Implementar MLFQ]].
 - Puntos estrella
