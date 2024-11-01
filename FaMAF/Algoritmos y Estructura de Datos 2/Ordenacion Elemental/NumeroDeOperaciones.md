@@ -57,6 +57,27 @@ $$ \text{ops(x := e)} = \begin{cases} \text{ops}(e) +\text{1}, & \text{Si se des
 
 - Tener en cuenta que la evaluación de $e$ puede implicar la llamada a funciones auxiliares cuyas operaciones deben ser también contadas.
 
+### El Ciclo do
+- El ciclo *do b ---> C od* (o equivalentemente *while b do C od*) se ejecuta evaluando la condición b, y dependiendo de si su valor es ***Verdadero*** o ***Falso*** se continua de la siguiente manera:
+	- Si su valor es ***Falso***, la ejecución termina inmediatamente.
+	- Si su valor fue ***Verdadero***, la ejecución continua con la ejecución del cuerpo C del ciclo, y luego de eso se vuelve a ejecutarse todo el ciclo nuevamente.
+- O sea que su ejecución es una secuencia de evaluaciones de la condición "b" y ejecuciones del cuerpo C que finaliza con la primera evaluación de "b" que de ***Falso***
+- Es decir, la ejecución del ciclo *do b ---> C od* "equivale" a la ejecución de:
+
+```LenguajeDeLaMateria
+if b then C
+	if b then C
+		if b then C
+			... indefinidamente xd
+		else skip
+	else skip
+else skip
+```
+
+- $$\text{ops}(\textbf{do } \, b \rightarrow C \, \textbf{od}) = \text{ops}(b) + \sum_{k=1}^{n} d_k$$
+	- $n$ es el numero de veces que se ejecuta el cuerpo do
+	- $d_k$ es el numero de operaciones que realizan la k-esima ejecución del cuerpo C del ciclo y la subsiguiente evaluación de la condición o guarda $b$.
+
 ### Numero de operaciones de una expresión 
 - Similares ecuaciones se pueden obtener para la evaluación de expresiones
 - Por ejemplo para evaluar la expresión $e<f$, primero se evalúa la expresión $e$, luego se evalúa la expresión $f$ y luego se comparan dichos valores

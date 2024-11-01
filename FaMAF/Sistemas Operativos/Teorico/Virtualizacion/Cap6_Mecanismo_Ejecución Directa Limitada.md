@@ -38,7 +38,7 @@ Si un proceso se esta ejecutando en la CPU, significa que el SO no esta corriend
 La mayoría de los procesos, transfieren el control de la CPU al SO con bastante frecuencia haciendo ***llamadas al sistema***. Los sistemas a menudo incluyen una llamada al sistema explicita ***yield()***: transfiere el control al SO para que pueda ejecutar otros procesos. Las aplicaciones también transfieren el control al SO cuando hacen algo ***ilegal***, por ejemplo: dividir por cero, o intentar acceder a memoria a la que no debería.
 
 ## Guardar y Restaurar el Contexto
-Ya que el SO ha recuperado el control (ya sea de forma cooperativa a través de una llamada al sistema o de forma mas forzada a través de un interrupción por tiempo), se debe tomar una decisión si continuar corriendo el proceso que se esta ejecutando actualmente o cambiarlo. Esta decisión la toma el ***[Planificador](Cap7_Planificación_Introducción)***.
+Ya que el SO ha recuperado el control (ya sea de forma cooperativa a través de una llamada al sistema o de forma mas forzada a través de un interrupción por tiempo), se debe tomar una decisión si continuar corriendo el proceso que se esta ejecutando actualmente o cambiarlo. Esta decisión la toma el ***[Planificador](Cap7_Planificación_Introducción.md)***.
 Si cambiamos de proceso, el SO ejecuta un fragmento de código de bajo nivel al que llamamos ***cambio de contexto*** (context switch): Todo lo que el SO tiene que hacer es guardar algunos valores de registros para el proceso que se esta ejecutando actualmente (por ejemplo: en su stack de kernel) y restaurar algunos para el proceso que pronto se ejecutara (desde su stack de kernel) 
 
 ## ¿Te preocupa la concurrencia?
