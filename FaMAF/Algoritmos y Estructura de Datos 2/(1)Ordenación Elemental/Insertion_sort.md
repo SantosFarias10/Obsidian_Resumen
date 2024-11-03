@@ -35,7 +35,7 @@ end proc
 - a[1, i] sin celdas J esta ordenado, y
 - a[J, i] también está ordenado.
 
-#### [Numero de comparaciones e intercambios](NumeroDeOperaciones) 
+#### [Numero de comparaciones e intercambios](NumeroDeOperaciones.md) 
 $$\begin{array}{|c|c|c|c|c|}
 \hline
 \text{si el valor de i es ...} & \text{comparaciones} & & \text{intercambios} & \\
