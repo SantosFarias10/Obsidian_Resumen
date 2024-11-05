@@ -1,0 +1,27 @@
+{
+	"nodes":[
+		{"id":"647e3c3ed866a549","type":"text","text":"Problema","x":-468,"y":-107,"width":136,"height":60,"color":"4"},
+		{"id":"c5a94862df77a142","type":"text","text":"Tipos Abstractos","x":-200,"y":-107,"width":200,"height":60,"color":"6"},
+		{"id":"fdf819cf215938ea","type":"text","text":"Tipos Abstractos","x":-200,"y":-180,"width":200,"height":60,"color":"6"},
+		{"id":"d6c164c198a41781","type":"text","text":"Tipo Abstractos","x":-200,"y":-40,"width":200,"height":60,"color":"6"},
+		{"id":"8cbd531982fe1c37","type":"text","text":"        Programa","x":120,"y":-280,"width":250,"height":340,"color":"#000000"},
+		{"id":"432b65e9bcc50601","type":"text","text":"Tipos Concretos","x":120,"y":-175,"width":250,"height":50},
+		{"id":"f39d73bd389d487b","type":"text","text":"Tipos Concretos","x":120,"y":-107,"width":250,"height":60},
+		{"id":"4353c169581ada85","type":"text","text":"Tipos Concretos","x":120,"y":-40,"width":250,"height":60},
+		{"id":"fbaa30a6f12e0e50","x":520,"y":-280,"width":260,"height":380,"type":"text","text":"- son provistos por el lenguaje de programación , decimos que son nativos,\n- es un concepto ***dependiente*** del lenguaje de programación,\n- comúnmente: enteros, char, string, booleanos, arreglos, reales.\n"},
+		{"id":"870f508b6d3af9f0","x":-225,"y":-1000,"width":250,"height":720,"color":"6","type":"text","text":"- ***Surgen de*** analizar ***el problema*** a resolver,\n- es un concepto ***independiente*** del lenguaje de programación,\n- eventualmente se implementara utilizando tipos concretos,\n- eso da lugar a una ***implementación*** o ***representación*** del tipo abstracto.\n- Ejemplo: si se quiere desarrollar una aplicación para un gps que calcule ciertos caminos óptimos, seguramente surgirá considerar un grafo donde las aristas son segmentos de rutas."}
+	],
+	"edges":[
+		{"id":"971350b8c356c945","fromNode":"647e3c3ed866a549","fromSide":"right","toNode":"fdf819cf215938ea","toSide":"left"},
+		{"id":"415c72290e885591","fromNode":"647e3c3ed866a549","fromSide":"right","toNode":"c5a94862df77a142","toSide":"left"},
+		{"id":"8a4e6d287be261f7","fromNode":"647e3c3ed866a549","fromSide":"right","toNode":"d6c164c198a41781","toSide":"left"},
+		{"id":"a923161efd12d5a2","fromNode":"fdf819cf215938ea","fromSide":"right","toNode":"432b65e9bcc50601","toSide":"left"},
+		{"id":"1606295495408064","fromNode":"c5a94862df77a142","fromSide":"right","toNode":"f39d73bd389d487b","toSide":"left"},
+		{"id":"185872c0b963770f","fromNode":"d6c164c198a41781","fromSide":"right","toNode":"4353c169581ada85","toSide":"left"},
+		{"id":"eef7b8f001e2d1d4","fromNode":"fdf819cf215938ea","fromSide":"right","toNode":"432b65e9bcc50601","toSide":"left"},
+		{"id":"c78e37cb608c389e","fromNode":"432b65e9bcc50601","fromSide":"right","toNode":"fbaa30a6f12e0e50","toSide":"left"},
+		{"id":"41c6daa79d3d3e78","fromNode":"f39d73bd389d487b","fromSide":"right","toNode":"fbaa30a6f12e0e50","toSide":"left"},
+		{"id":"f85af48f0c9e1a13","fromNode":"4353c169581ada85","fromSide":"right","toNode":"fbaa30a6f12e0e50","toSide":"left"},
+		{"id":"b1af1a3ae37cac14","fromNode":"fdf819cf215938ea","fromSide":"top","toNode":"870f508b6d3af9f0","toSide":"bottom"}
+	]
+}
