@@ -58,7 +58,7 @@ Las funciones para controlar los semaphores que hicimos son:
 
 ## Estrategias de scheduling en general y como se implementarian en xv6
 Utilizamos dos métodos de scheduling en xv6: 
-- RoundRobin "RR", es el planificador donde a partir de multiples procesos en el sistema operativo, se elige y planifica el que haya llegado en un tick mas bajo, para permanecer en ejecución durante un quantum, y al terminarse su quantum desplanificarse y planificarse el siguiente proceso.
+- RoundRobin "RR", es el planificador donde a partir de múltiples procesos en el sistema operativo, se elige y planifica el que haya llegado en un tick mas bajo, para permanecer en ejecución durante un quantum, y al terminarse su quantum desplanificarse y planificarse el siguiente proceso.
   
   Es el scheduler original de xv6, los pasos que sigue son:
   1. Cicla en una lista de procesos.
