@@ -1,4 +1,9 @@
-gcc -Wall -Werror -Wextra -pedantic -std=c99 -o *nombre_para_ejecutar* nombre_del_archivo.c
+- gcc -Wall -Werror -Wextra -pedantic -std=c99 -o *nombre_para_ejecutar* nombre_del_archivo.c
+- gcc -Wall -Werror -Wextra -pedantic -std=c99 -c nombres_de_los_archivos.c
+- gcc -Wall -Werror -Wextra -pedantic -std=c99 nombres_de_los_objetos.o -o nombre_para_ejecutar
+
+
+Mis labs: https://github.com/SantosFarias10/Repaso_Lab_Algoritmos2
 
 ### fopen()
 `fopen` esta especificada de la siguiente forma: `FILE *fopen(const char *filename, const char *mode);`. Esta incluida en la librería `<stdio.h>` y lo que hace es abre el archivo especificado por ***filename***. El parámetro ***mode*** es una serie de caracteres que especifica el tipo de acceso que se solicita para el archivo (o sea si nosotros queremos leer el archivo le pasamos un carácter solamente para leer (r), o para escribir () o para leer y escribir (r+), etc). Una vez completada la función `fopen` devuelve el puntero a FILE, en caso contrario de vuelve `null` en caso de error. Ejemplo: 
@@ -32,3 +37,20 @@ Retorna el número de bytes que se imprimen o un valor negativo si se produce un
 La función `exit()` permite finalizar la ejecución de un programa de manera controlada, devuelve el control al entorno de sistema principal desde el programa. 
 El argumento `status` indica el **código de salida** del programa, puede tener un valor de 0 a 255 inclusive, o puede ser una de las macros `EXIT_SUCCESS` (Es una constante que representa un valor estándar (generalmente 0) para indicar que el programa terminó con éxito) o `EXIT_FAILURE` (Es una constante que representa un valor estándar (generalmente distinto de 0, como 1) para indicar que el programa terminó con un error).
 
+### Cositas
+Recordar que ***typedef*** define sinónimos de tipos (como type en Haskell)
+Por ejemplo:  `mybool` es un sinónimo de `int` (son el mismo tipo). Además se  
+definen las constantes true y false:  
+```c
+define true 1  
+define false 0  
+
+typedef int mybool;
+```
+
+### ifndef, define y endif
+Las directivas de preprocesador `#ifndef`, `#define` y `#endif` se utilizan para prevenir la inclusión múltiple de un archivo de encabezado en un programa en C. Esto se conoce como "include guard" o "guardas de inclusión".
+- **`#ifndef`**: Verifica si una macro no ha sido definida previamente.
+- **`#define`**: Define la macro para indicar que el archivo ha sido incluido.
+- **`#endif`**: Finaliza la condición iniciada por `#ifndef`.
+Estas directivas aseguran que el contenido del archivo de encabezado solo se incluya una vez durante la compilación, evitando problemas de redefinición y errores de compilación.
