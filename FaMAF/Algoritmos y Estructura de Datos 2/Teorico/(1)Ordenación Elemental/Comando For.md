@@ -1,7 +1,7 @@
 Fragmentos de la siguiente forma aparecen con frecuencia:
 ```LenguajeDeLaMateria
 k:= n
-do k ≤ m --->
+do (k ≤ m) --->
 	k:= k+1
 od
 ```

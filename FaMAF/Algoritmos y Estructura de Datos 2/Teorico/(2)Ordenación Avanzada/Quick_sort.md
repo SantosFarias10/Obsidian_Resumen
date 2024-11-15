@@ -5,7 +5,7 @@ Quick_sort = Ordenación Rápida.
 ```LenguajeDeLaMateria
 proc quick_sort_rec(in/out a: array[1..n] of T, in lft, rgt: nat)
 	var ppiv: nat
-	if rgt > lft --->
+	if (rgt > lft) --->
 		partition(a, lft, rgt, ppiv)
 		{- lft ≤ ppiv ≤ rgt 
 			elemento en a[lft, ppiv - 1] ≤ a[ppiv]

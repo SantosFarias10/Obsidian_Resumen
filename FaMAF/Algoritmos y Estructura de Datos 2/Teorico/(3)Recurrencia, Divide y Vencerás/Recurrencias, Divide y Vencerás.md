@@ -10,7 +10,7 @@ t(n) =
 t\left(\left\lceil \frac{n}{2} \right\rceil\right) + t\left(\left\lfloor \frac{n}{2} \right\rfloor\right) + n - 1 & \text{si } n > 1 
 \end{cases}
 $$
-- Un ejemplo de divide y vencerás es la [Ordenación por Intercalación](Merge_sort)
+- Un ejemplo de divide y vencerás es la [Ordenación por Intercalación](Merge_sort.md)
 
 ## Algoritmo Divide y Vencerás
 ### Características:
@@ -43,12 +43,12 @@ donde
 Normalmente los $x_i$ son ***fracciones*** de x: $|x_i| = \frac{|x|}{b}$ para algún b > 1.
 
 ##### Ejemplos:
-- [Ordenación por Intercalación](Merge_sort):
+- [Ordenación por Intercalación](Merge_sort.md):
 	- "x simple" = fragmento de arreglo de longitud 0 o 1
 	- "descomponer" = partir al medio (b = 2)
 	- a = 2
 	- "combinar" = intercalar
-- [Ordenación Rápida](Quick_sort):
+- [Ordenación Rápida](Quick_sort.md):
 	- "x simple" = fragmento de arreglo de longitud 0 o 1
 	- "descomponer" = separar los menores de los mayores (b = 2)
 	- a = 2
@@ -118,9 +118,9 @@ end fun
 
 ### Analicemos otros algoritmos
 - [Ordenación por selección](Selection_Sort.md) es del orden de $n²$.
-- [Ordenación por inserción](Insertion_sort) es del orden de $n²$ (peor caso y caso medio).
-- [Ordenación por intercalación](Merge_sort) es del orden de $n.log_2(n)$.
-- [Ordenación rápida](Quick_sort) es del orden de $n.log_2(n)$ (caso medio).
+- [Ordenación por inserción](Insertion_sort.md) es del orden de $n²$ (peor caso y caso medio).
+- [Ordenación por intercalación](Merge_sort.md) es del orden de $n.log_2(n)$.
+- [Ordenación rápida](Quick_sort.md) es del orden de $n.log_2(n)$ (caso medio).
 - Búsqueda lineal es del orden de $n$.
 - Búsqueda binaria es del orden de $log_2(n)$.
 
@@ -177,4 +177,4 @@ $$
 $$
 
 ### Demostración de la recurrencia DyV
-Si queres leer la demostración fíjate en las filminas, es muy larga para copiarla salu2
+Si queres leer la demostración fíjate en las filminas capo, es muy larga para copiarla salu2

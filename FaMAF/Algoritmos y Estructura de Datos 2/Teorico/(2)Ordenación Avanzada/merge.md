@@ -10,7 +10,7 @@ proc marge(in/out a: array[1..n] of T, in lft, rgt: nat)
 	j:= lft
 	k:= mid + 1
 	for i:= lft to rgt do
-		if j ≤ mid ∧ (k > rgt ∨ tmp[j] ≤ a[k]) then
+		if (j ≤ mid) ∧ (k > rgt ∨ tmp[j] ≤ a[k]) then
 			a[i]:= tmp[j]
 			j:= j + 1
 		else

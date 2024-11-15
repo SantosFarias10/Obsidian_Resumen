@@ -1,0 +1,12 @@
+- [x] 1) Ordenación Elemental
+- [x] 2) Ordenación Avanzada
+- [x] 3) Recurrencia, Divide y Vencerás
+- [x] 4) Tipos Concretos
+- [x] 5) Tipos abstractos
+- [ ] 6) TADs: Pilas y Colas
+- [ ] 7) Arboles
+- [ ] 8) Algoritmos Voraces
+- [ ] 9) Algoritmos Voraces sobre Grafos
+- [ ] 10) Backtracking
+- [ ] 11) Programación Dinámica
+- [ ] 12) Recorrida de Grafos

@@ -4,12 +4,12 @@ proc partition(in/out a: array[1..n] of T, in lft, rgt: nat, out ppiv: nat)
 	ppiv:= lft
 	i:= lft + 1
 	j:= rgt
-	do i ≤ j --->
-		if a[i] ≤ a[ppiv] --->
+	do (i ≤ j) --->
+		if (a[i] ≤ a[ppiv]) --->
 			i:= i + 1
-		else if a[j] > a[ppiv] --->
+		else if (a[j] > a[ppiv]) --->
 			j:= j - 1
-		else if a[i] > a[ppiv] ∧ a[j] < a[ppiv] --->
+		else if (a[i] > a[ppiv] ∧ a[j] < a[ppiv]) --->
 			swap(a, i, j)
 			i:= i + 1
 			j:= j + 1
@@ -21,7 +21,7 @@ end proc
 ```
 
 ##### Funciones auxiliares
-- [swap](swap)
+- [swap](swap.md)
 
 ### Invariante
 ![[Invariante de partition.png]]

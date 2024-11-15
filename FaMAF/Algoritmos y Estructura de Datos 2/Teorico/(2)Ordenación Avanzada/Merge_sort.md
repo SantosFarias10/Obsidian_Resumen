@@ -5,7 +5,7 @@ merge_sort = Ordenación por intercalación
 ```LenguajeImperativo
 proc merge_sort_rec(in/out a: array[1..n] of T, in lft, rgt: nat)
 	var mid: nat
-	if rgt > lft --->
+	if (rgt > lft) --->
 		mid:= (rgt + lft) / 2
 		merge_sort_rec(a, lft, mid)
 		{- a[lft, mid] permutación ordenada de A[lft, mid] -}

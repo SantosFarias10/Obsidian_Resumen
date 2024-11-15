@@ -5,13 +5,10 @@ Insertion_sort = Ordenación por inserción
 - cada carta que se levanta de la mesa, se inserta en el lugar correspondiente entre las que ya están en las manos, manteniendolas ordenadas.
 
 #### Ejemplo
-
 ![[Ejemplo de insertion_sort.png]]
 
 ## Invariante:
-
 ![[invariante de insertion_sort.png]]
-
 - El arreglo "a" es una permutación del original y
 - un segmento inicial a[1, i) del arreglo está ordenado.
 - (pero en general a[1, i) NO contiene el mínimo del arreglo).

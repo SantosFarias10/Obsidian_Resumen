@@ -7,28 +7,24 @@ Selection_sort = Ordenación por selección
 - ... (en cada uno de estos pasos ordena un elemento) ... 
 - hasta terminar
 #### Ejemplo
-
 ![[EjemploSelection_sort.png]]
 
 ### Invariante:
-
 ![[InvarianteSelection_sort.png]]
-
 - El Arreglo "a" es una permutación del original,
 - Un segmento inicial a[1,i) del arreglo esta ordenado,
 - dicho segmento contiene los elementos mínimos del arreglo.
  
 ### Pseudocódigo
-
 *{Pre: $n≥0 ∧ a = A$ }*
 ``` LenguajeDeLaMateria
 Proc Selection_sort (in/out a: array [1..n] of T)
 	var i, minp: nat
-	i := 1          {Inv: Invariante de recién}
-	do i<n --->
-		minp := min_pos_from(a, i)
+	i:= 1          {Inv: Invariante de recién}
+	do (i < n) --->
+		minp:= min_pos_from(a, i)
 		swap(a, i, minp)
-		i  := i+1
+		i:= i+1
 	od
 end proc
 ```
@@ -52,14 +48,11 @@ end proc
 - [swap](swap.md)
 
 ### Invariante de la función de selección 
-
 ![[Inariante de la funcion de seleccion.png]]
-
 - Invariante anterior, y
 - El mínimo del segmento a[i,j] está en la posición minp
 
 #### ¿Cuantas comparaciones realiza la ordenación por selección?
-
 Según nuestro [[Análisis]]
 - Al llamarse a [min_pos_from](FuncionDeSeleccion.md)(a, i) se realiza n-i comparaciones
 - Selection_sort llama a [min_pos_from](FuncionDeSeleccion.md)(a, i) para i ∈ {1,2,3,....,n-1}
