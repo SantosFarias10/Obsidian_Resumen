@@ -11,7 +11,7 @@ t\left(\left\lceil \frac{n}{2} \right\rceil\right) + t\left(\left\lfloor \frac{n
 \end{cases}
 $$
 - Un ejemplo de divide y vencerás es la [Ordenación por Intercalación](Merge_sort.md)
-
+---
 ## Algoritmo Divide y Vencerás
 ### Características:
 - Hay una solución para los casos sencillos,
@@ -20,7 +20,7 @@ $$
 	- el tamaño del subproblema es una ***fracción*** del original,
 	- se resuelve los subproblemas apelando al mismo algoritmo,
 - se ***Combina*** esas soluciones para obtener una solución del original.
-
+---
 ### Forma general del algoritmo divide y vencerás
 ```LenguajeDeLaMateria
 fun DyV(x) ret y
@@ -41,7 +41,7 @@ donde
 - b: relación entre el tamaño de "x" y el de $x_i$, satisface que $|x_i| = \frac{|x|}{b}$
 - k: orden de descomponer y combinar es $n^k$
 Normalmente los $x_i$ son ***fracciones*** de x: $|x_i| = \frac{|x|}{b}$ para algún b > 1.
-
+---
 ##### Ejemplos:
 - [Ordenación por Intercalación](Merge_sort.md):
 	- "x simple" = fragmento de arreglo de longitud 0 o 1
@@ -53,7 +53,7 @@ Normalmente los $x_i$ son ***fracciones*** de x: $|x_i| = \frac{|x|}{b}$ para al
 	- "descomponer" = separar los menores de los mayores (b = 2)
 	- a = 2
 	- "combinar" = yuxtaponer.
-
+---
 ## Conteo
 Si queremos contar el costo computacional (números de operaciones) $t(n)$ de la función DyV obtenemos:
 $$
@@ -64,6 +64,7 @@ Si $c$ es una constante que representa el costo computacional de la función ad_
 Esta definición de $t(n)$ es recursiva (como el algoritmo de DyV), se llama ***Recurrencia***. Existen distintos tipos de recurrencia. 
 Esta se llama ***Recurrencia divide y vencerás***.
 
+---
 - Si 
 $$
 t(n) = \begin{cases} c & \text{si la entrada es pequeña o simple} \\ 
@@ -77,7 +78,7 @@ t(n) \text{ es del orden de } \begin{cases}
       n^k & \text{si } a < b^k
    \end{cases}
 $$
-
+---
 ### Ejemplo: búsqueda binaria
 *{Pre: 1 ≤ lft ≤ n + 1 ∧  0 ≤ rgt ≤ n ∧ a ordenado}*
 ```LenguajeDeLaMateria
@@ -108,6 +109,7 @@ end fun
 ```
 *{Post: (i = 0 => x no está en a[lft, rgt]) ∧ (i ≠0 => x = a[i])}*
 
+---
 ### Analizamos la función de búsqueda binaria
 - Sea $t(n)$ = número de comparaciones que hace en el peor caso cuando el arreglo tiene $n$ celdas.
 - $$t(n) = \begin{cases} 0 & \text{si n = 0} \\ 
@@ -115,7 +117,7 @@ end fun
  - a = 1, b = 2 y k= 0.
  - a = $b^k$
  - $t(n)$ es del ***orden*** de $n^k.log(n)$, es decir, del orden de $log(n)$
-
+ ---
 ### Analicemos otros algoritmos
 - [Ordenación por selección](Selection_Sort.md) es del orden de $n²$.
 - [Ordenación por inserción](Insertion_sort.md) es del orden de $n²$ (peor caso y caso medio).
@@ -123,7 +125,7 @@ end fun
 - [Ordenación rápida](Quick_sort.md) es del orden de $n.log_2(n)$ (caso medio).
 - Búsqueda lineal es del orden de $n$.
 - Búsqueda binaria es del orden de $log_2(n)$.
-
+---
 ### ¿Cómo comparamos los órdenes de los algoritmos?
 - Hay funciones que crecen más rápido que otras (cuando $n$ tiene a +∞).
 - Escribiremos $f(n) ⊏ g(n)$ para decir que $g(n)$ ***crece más rápido*** que $f(n)$ 
@@ -134,7 +136,7 @@ end fun
 - Ejemplo: 
 	- $$\frac{n²}{2} - \frac{n}{2} ≈ n²$$
 	- $45 * n² ≈ n²$
-
+---
 ### Algunas condiciones
 - No nos interesa las constantes multiplicativas:
 	- $\frac{1}{4} * n² ≈ n²$.
@@ -155,7 +157,7 @@ $$
 & ⊏ {100000}^n ⊏ n! ⊏ n^n 
 \end{align*}
 $$
-
+---
 ### Propiedades
 - Constantes multiplicativas no afectan.
 - Términos de crecimiento despreciable no afectan.
@@ -175,6 +177,6 @@ $$
 & ⊏ 1.02^n ⊏ 100^n ⊏ 10000^n ⊏ (n - 1)! ⊏ n! ⊏ (n + 1)! ⊏ n^n
 \end{align*}
 $$
-
+---
 ### Demostración de la recurrencia DyV
-Si queres leer la demostración fíjate en las filminas capo, es muy larga para copiarla salu2
+Si queres leer la demostración fíjate en las filminas capo, es muy larga para copiarla salu2.

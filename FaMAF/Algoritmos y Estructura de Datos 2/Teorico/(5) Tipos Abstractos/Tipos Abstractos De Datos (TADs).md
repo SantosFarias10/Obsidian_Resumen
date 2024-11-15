@@ -9,7 +9,7 @@
 - Podemos tener varias ***Implementaciones*** para un mismo TAD.
 - En general surgen de analizar un problema a resolver.
 - El problema evidencia qué necesitamos representar y qué operaciones tener.
-
+---
 ## Especificación
 Para especificar un TAD debemos:
 - Indicar su nombre (obvio xd).
@@ -18,7 +18,7 @@ Para especificar un TAD debemos:
 - Indicamos los tipos de cada constructor y operación (el encabezado de los procedimientos o funciones), y mediante lenguaje natural explicamos qué hacen.
 - Algunas operaciones pueden tener restricciones que las indicamos mediante ***Precondiciones***.
 - Debemos especificar también una operación de ***Destrucción*** que libera la memoria utilizada por los elementos del tipo, en caso que sea necesario.
-
+---
 ## Implementación
 A partir de una especificación de un TAD, para implementarlo debemos:
 - Definir un nuevo tipo con el nombre del TAD especificado. Para ello utilizamos tipos concretos y otros tipos definidos previamente.
@@ -27,7 +27,7 @@ A partir de una especificación de un TAD, para implementarlo debemos:
 - Implementar operación de destrucción liberando memoria si es que se ha reservado al construir los elementos.
 - Puede surgir nuevas restricciones que dependen de cómo implementamos el tipo.
 - Puedo necesitar operaciones auxiliares que no están especificados en el tipo.
-
+---
 ## Listas
 - Las listas permiten resolver una gran cantidad de problemas.
 - Son colecciones de elementos de un mismo tipo, de tamaño variable.
@@ -104,7 +104,7 @@ fun copy_list(l1: List of T) ret l2: List of T
 - Mediante sus ***Constructores*** `empty` y `addl` pueden crearse listas vacías o agregar a una lista un elemento nuevo, respectivamente.
 - Las ***Operaciones*** permiten manipular las listas de acuerdo a la funcionalidad que el TAD provee.
 - ***NO*** es necesario conocer la implementación para poder ***Usar*** el TAD.
-
+---
 ## Ejemplo de uso del TAD Lista
 ```LenguajeDeLaMateria
 fun promedio(l: List of float) ret r: float
@@ -125,7 +125,7 @@ fun promedio(l: List of float) ret r: float
 	r:= r/largo
 end proc
 ```
-
+---
 ## Implementación de Listas mediante Punteros
 - Implementaremos el TAD lista utilizando punteros, implementación conocida como ***Lista Enlazada***.
 - Cada elemento de la lista estará alojado en un ***Nodo*** contenido además un puntero hacia el siguiente.
@@ -226,7 +226,7 @@ fun length(l: List of T) ret n: nat
 	od
 end fun
 ```
-
+---
 ## Paréntesis balanceados
 - Problemas
 	- Dar un algoritmo que tome una expresión,
@@ -240,7 +240,7 @@ end fun
 - ***Incrementarlo*** cada vez que se encuentre un paréntesis que abre,
 - ***Decrementarlo*** (comprobando previamente que no sea nulo en cuyo caso ***no están balanceados***) cada vez que se encuentran un paréntesis que cierra.
 - Al finalizar, ***Comprobar*** que dicho entero sea cero.
-
+---
 ## Contador
 - No hace falta un entero (susceptible de numerosas operaciones aritméticas),
 - sólo se necesita ***Algo*** con lo que se pueda
@@ -252,7 +252,7 @@ end fun
 - Notar que las operaciones ***Inicializar*** e ***Incrementar*** son capaces de generar todos los valores posibles del contador, por lo que serán nuestros ***Constructores***.
 - ***Comprobar*** en cambio solamente examina el contador,
 - ***Decrementar*** no genera más valores que los obtenibles por ***Inicializar*** e ***Incrementar***
-
+---
 ## Especificar del TAD Contador
 ```LenguajeDeLaMateria
 spec Counter where
@@ -282,7 +282,7 @@ proc decr(in/out c: Counter)
 {- Decrementa el contador c. -}
 {- PRE: not is_init(c) -}
 ```
-
+---
 ## Resolviendo el problema
 - Queremos implementar un algoritmo que resuelva el problema de los paréntesis balanceados utilizando el TAD contador.
 - La especificación nos da toda la información que necesitamos tener: constructores y operaciones con sus tipos.
