@@ -6,6 +6,7 @@ Insertion_sort = Ordenación por inserción
 ---
 #### Ejemplo
 ![[Ejemplo de insertion_sort.png]]
+
 ---
 ## Invariante:
 ![[invariante de insertion_sort.png]]
@@ -44,8 +45,6 @@ proc insert(in/out a: array[1..n] of T, In i: nat)
 *{Post: a[1, i] está ordenado ∧ "a" es permutación de A}*
 
 ---
-
-
 #### Numero de comparaciones e intercambios 
 $$\begin{array}{|c|c|c|c|c|}
 \hline

@@ -1,4 +1,4 @@
-- [[Enumerados]]
-- [[Tuplas]]
-- [[Arreglos]]
-- [[Punteros]]
+- [[(2)_Enumerados]]
+- [[(3)_Tuplas]]
+- [[(4)_Arreglos]]
+- [[(5)_Punteros]]
