@@ -14,66 +14,15 @@
 ## Spinlocks y Zonas Criticas
 Tenemos la información de que: en xv6 el archivo en `kernel/spinlock.c`, están las funciones `acquire()` y `release()`, que son las que llevan a cabo el ***"lockeo"*** y ***"des-lockeo"*** de los procesos.
 
-Hacer el ***"lock"*** sirve para que en el caso de tener un procesador con múltiples núcleos, no se generen problemas en las zonas criticas.
+Hacer el ***"lock"*** sirve para que en el caso de tener un procesador con múltiples núcleos, no se generen problemas en las ***zonas criticas***.
 Específicamente las ***zonas criticas*** son los cambios de contexto, al ***"deschedular"*** con `yield()`, al ***"schedular"*** con `scheduler()`, etc. En general, la ***zona critica*** es la que este encerrada entre un `acquire()` y un `release()`.
 
-- `acquire()`: se utiliza para adquirir un ***spinlock***, que es un tipo de bloqueo que hace que el hilo que intenta adquirirlo gire en un bucle hasta que el bloqueo esté disponible. Asegura que el hilo actual adquiera el ***spinlock*** de manera segura y atómica, deshabilitando interrupciones y asegurando la correcta ordenación de las operaciones de memoria.
-```c
-// Adquirir el bloqueo.
-// Bucle (gira) hasta que se adquiera el bloqueo.
-void
-acquire(struct spinlock *lk)
-{
-  push_off(); // deshabilitar interrupciones para evitar interbloqueo.
-  if(holding(lk))
-    panic("acquire");
+- `acquire()`: se utiliza para adquirir un ***spinlock***, que es un ***tipo de bloqueo*** que hace que el hilo que intenta adquirirlo gire en un bucle hasta que el bloqueo esté disponible. Asegura que el hilo actual adquiera el ***spinlock*** de manera segura y atómica, deshabilitando interrupciones y asegurando la correcta ordenación de las operaciones de memoria.
 
-  // En RISC-V, sync_lock_test_and_set se convierte en un intercambio atómico:
-  //   a5 = 1
-  //   s1 = &lk->locked
-  //   amoswap.w.aq a5, a5, (s1)
-  while(__sync_lock_test_and_set(&lk->locked, 1) != 0)
-    ;
-
-  // Indicar al compilador de C y al procesador que no muevan cargas o almacenes
-  // más allá de este punto, para asegurar que las referencias de memoria de la
-  // sección crítica ocurran estrictamente después de que se adquiera el bloqueo.
-  // En RISC-V, esto emite una instrucción de barrera (fence).
-  __sync_synchronize();
-
-  // Registrar información sobre la adquisición del bloqueo para holding() y depuración.
-  lk->cpu = mycpu();
-}
-```
-
-- `release()`: se utiliza para liberar un spinlock que ha sido previamente adquirido. Asegura que el ***spinlock*** sea liberado de manera segura, verificando que el hilo actual tenga el bloqueo, limpiando la información del CPU, y utilizando una barrera de memoria para asegurar la correcta ordenación de las operaciones de memoria.
-```c
-// Liberar el bloqueo.
-void
-release(struct spinlock *lk)
-{
-  if(!holding(lk))
-    panic("release");
-
-  lk->cpu = 0;
-
-  // Indicar al compilador de C y al CPU que no muevan cargas o almacenes
-  // más allá de este punto, para asegurar que todos los almacenes en la
-  // sección crítica sean visibles para otros CPUs antes de liberar el bloqueo,
-  // y que las cargas en la sección crítica ocurran estrictamente antes
-  // de liberar el bloqueo.
-  // En RISC-V, esto emite una instrucción de barrera (fence).
-  __sync_synchronize();
-
-  // Liberar el bloqueo, equivalente a lk->locked = 0.
-  // Este código no usa una asignación en C, ya que el estándar de C
-  // implica que una asignación podría ser implementada con
-  // múltiples instrucciones de almacenamiento.
-}
-```
+- `release()`: se utiliza para liberar un ***spinlock*** que ha sido previamente adquirido. Asegura que el ***spinlock*** sea liberado de manera segura, verificando que el hilo actual tenga el bloqueo, limpiando la información del CPU, y utilizando una barrera de memoria para asegurar la correcta ordenación de las operaciones de memoria.
 ---
 ## Implementación de Syscalls
-Las ***system calls*** son funciones que permiten a procesos del modo usuario acceder a recursos restringidos del modo kernel. Específicamente, ***evitan que los procesos tengan la posibilidad de manipular el sistema*** de hardware o el sistema operativo sin control.
+Las ***system calls*** son funciones que permiten a procesos del ***modo usuario*** acceder a recursos restringidos del ***modo kernel***. Específicamente, ***evitan que los procesos tengan la posibilidad de manipular el sistema*** de hardware o el sistema operativo sin control.
 
 En xv6 se implementan en:
 1. `syscall.h`, se les asigna un numero de identificación.
@@ -82,7 +31,7 @@ En xv6 se implementan en:
 4. `sysproc.c`, se define la función.
 ---
 ## Syscalls exit(), getpid(), fork(), wait(), sleep(), kill(), uptime()
-- `exit()`, termina un proceso donde se llamó. Liberando sus recursos y dejándolo en modo zombie hasta que el proceso padre lo elimine por completo. Maneja la terminación de un proceso, asegurándose de cerrar todos los recursos asociados y de que el proceso padre sea notificado adecuadamente.
+- `exit()`, termina un proceso donde se llamó. Liberando sus recursos y ***dejándolo en modo zombie hasta que el proceso padre lo elimine por completo***. Maneja la terminación de un proceso, asegurándose de cerrar todos los recursos asociados y de que el proceso padre sea notificado adecuadamente.
 ```c
 // Salir del proceso actual. No retorna.
 // Un proceso que ha salido permanece en el estado zombie
@@ -130,7 +79,7 @@ exit(int status)
 }
 ```
 - `getpid()`, retorna el process id del proceso donde se llamó.
-- `fork()`, crea un proceso nuevo, quedando padre e hijo. (El hijo recibe cero y el padre el pid del hijo). Maneja la creación de un nuevo proceso duplicando el proceso actual, configurando el nuevo proceso hijo para que sea ejecutable y retornando su PID.
+- `fork()`, crea un proceso nuevo, quedando padre e hijo. (***!!El hijo recibe cero¡¡*** y el padre el pid del hijo). Maneja la creación de un nuevo proceso duplicando el proceso actual, configurando el nuevo proceso hijo para que sea ejecutable y retornando su PID.
 ```c
 // Crear un nuevo proceso duplicando el proceso actual.
 // El proceso hijo es una copia del proceso padre.
@@ -184,7 +133,7 @@ fork(void)
   return pid;
 }
 ```
-- `wait()`, hace que el padre de un proceso espere hasta que el hijo termine de ejecutarse. Maneja la espera de un proceso padre a que uno de sus procesos hijos termine, retornando el PID del hijo terminado o `-1` si no tiene hijos.
+- `wait()`, ***hace que el padre de un proceso espere hasta que el hijo termine de ejecutarse***.  Retornando el PID del hijo terminado o `-1` si no tiene hijos.
 ```c
 // Espera a que un proceso hijo salga y retorna su pid.
 // Retorna -1 si este proceso no tiene hijos.
@@ -305,7 +254,7 @@ struct semaphore {
 };
 ```
 donde:
-- `value`: Representa el valor del semáforo. Este valor se utiliza para controlar el acceso a un recurso compartido. Un valor positivo indica la cantidad de recursos disponibles, mientras que un valor negativo o cero indica que no hay recursos disponibles o que el semáforo está cerrado.
+- `value`: Representa el valor del semáforo. Este valor se utiliza para controlar el acceso a un recurso compartido. Un valor positivo indica la cantidad de recursos disponibles, mientras que un ***valor negativo o cero indica que no hay recursos disponibles o que el semáforo está cerrado***.
 - `lock`: Es spinlock que se utiliza para asegurar que las operaciones sobre el semáforo sean ***atómicas***. Esto significa que cuando un hilo está modificando el valor del semáforo, otros hilos no pueden acceder a él hasta que el bloqueo se libere.
 
 Las funciones para controlar los semaphores que hicimos son:
@@ -313,8 +262,8 @@ Las funciones para controlar los semaphores que hicimos son:
 ```c
 int sem_open(int sem, int value) {
   if (sem < 0 || sem >= MAX_SEMAPHORES || semaforo[sem].value != -1 || 
-  value < 0) {       // SI sem es menor que cero || sem es mayor que el numero de semaphores permitidos || si el valor es negativo entonces
-    return 0;        // El semaphore es invalido, retornamos cero que es el error
+  value < 0) {       // SI sem es invalido
+    return 0;        // Retornamos cero que es el error
   }
 
   acquire(&(semaforo[sem].lock));      // Bloqueamos
@@ -327,8 +276,8 @@ int sem_open(int sem, int value) {
 - `int sem_close(int sem)`, libera el semáforo sem.  Si el semáforo es válido, lo cierra estableciendo su valor en `-1`. Retorna `1` si tiene éxito y `0` si falla.
 ```c
 int sem_close(int sem) {
-  if (sem < 0 || sem >= MAX_SEMAPHORES) {  // SI sem es menor que cero || sem es mayor que el numero de semaphores permitidos, entonces
-    return 0;                              // El semaphore es invalido                                                      Retornamos 0 (o sea el error)
+  if (sem < 0 || sem >= MAX_SEMAPHORES) {  // SI sem es invalido
+    return 0;     // El semaphore es invalido Retornamos 0 (o sea el error)
   }
   
   acquire(&(semaforo[sem].lock));   // Bloqueamos
@@ -342,7 +291,7 @@ int sem_close(int sem) {
 ```c
 int sem_up(int sem) {
   if (sem < 0 || sem >= MAX_SEMAPHORES || semaforo[sem].value == -1) {
-    return 0;
+    return 0;  // Retornamos 0 (error) si sem es invalido
   }
   acquire(&(semaforo[sem].lock));  // Bloqueamos
   
@@ -361,7 +310,7 @@ int sem_up(int sem) {
 ```c
 int sem_down(int sem) {
   if (sem < 0 || sem >= MAX_SEMAPHORES || semaforo[sem].value == -1) {
-    return 0;
+    return 0;  // Retornamos 0 (error) si sem es invalido
   }
 
   acquire(&(semaforo[sem].lock));  // Bloqueamos
@@ -427,7 +376,7 @@ int main(int argc, char **argv) {
 
     int sem_hijo = sem_search(0);
     int sem_padre = sem_search(1);
-    // inicializamos con la funcion sem_search con los valores 0 y 1 respectivamente para diferenciar los semaforos que controlan la sincronización entre el proceso padre y el proceso hijo. (creo)
+    // inicializamos con la funcion sem_search con los valores 0 y 1 respectivamente porque en el fork el caso hijo es cuando (fork == 0)
 
     int f = fork(); // creamos un proceso hijo
 
@@ -468,7 +417,7 @@ Utilizamos dos métodos de scheduling en xv6:
   4. Hace el ***cambio de contexto***, ejecutándolo.
   5. vuelve al paso 1.
 
-- `scheduler()`
+- `scheduler()` con RR:
 ```c
 // Planificador de procesos por CPU.
 // Cada CPU llama a scheduler() después de configurarse.
@@ -574,7 +523,7 @@ scheduler(void)
         // El proceso ha terminado de ejecutarse por ahora.
         // Debería haber cambiado su p->state antes de regresar.
         c->proc = 0;
-	    release(&p->lock);
+	    release(&b->lock);
     }
   }
 }
@@ -647,35 +596,36 @@ yield(void)
 }
 ```
 ---
-## Conceptos de quantum, ticks, interrupciones y panic
+## Conceptos de quantum, ticks, interrupciones, panic, Context Switches
 - Los ***quantums*** son la cantidad de tiempo asignado a la ejecución de un proceso por el ***scheduler*** antes de que suceda el cambio de contexto. En xv6 es la variable `interval`, encontrada en `kernel/start.c`.
 - Los ***ticks*** son la cantidad de interrupciones por el timer que sucedieron desde el inicio del sistema. Por ejemplo la syscall `uptime()`.
 - Las ***interrupciones*** son un mecanismo por el cual el hardware interrumpe la ejecución de un proceso para devolverle el control a la CPU. Hay de muchos tipos, por ejemplo las de tiempo, que son las que cuentan los ticks.
 - ***Panic*** es un error fatal en el sistema operativo que provoca que colapse. Al sistema operativo entrar en modo panic, se detiene por completo y/o se reinicia. Estos suceden cuando se detecta una situación critica de la que no se puede recuperar, en nuestro caso con la implementación del planificador, se corrobora constantemente por ejemplo con `sched()` que no hayan problemas críticos con los procesos.
+- ***Context Switches*** es proceso mediante el cual un sistema operativo guarda el estado de un proceso o hilo y lo restaura posteriormente. Esto permite que múltiples procesos compartan una única CPU y es esencial para la multitarea en sistemas operativos modernos. Durante un cambio de contexto, el sistema operativo guarda el estado del proceso actual (como registros de CPU, punteros de pila, etc.) y carga el estado del siguiente proceso a ejecutar.
 ---
 ## Preguntas del lab3
 
 #### Primera parte
 1. ¿Qué política de planificación utiliza `xv6-riscv` para elegir el próximo proceso a ejecutarse?
-En xv6 se usa la técnica en la que interrupciones de tiempo en hardware ***"Hardware Timer's Interrupts"*** que manejan el cambio de contexto "Context Switches". Esta política de planificación se llama RoundRobin.
+En xv6 se usa la técnica en la que interrupciones de tiempo en hardware ***"Hardware Timer's Interrupts"*** que manejan el cambio de contexto "Context Switches". Esta política de planificación se llama ***RoundRobin***.
 
- 2. ¿Cuáles son los estados en los que un proceso puede permanecer en xv6-riscv y qué los hace cambiar de estado?
-Los estados de los procesos son runnable, running, sleeping, zombie, used y unused.
+ 2. ¿Cuáles son los estados en los que un proceso puede permanecer en `xv6-riscv` y qué los hace cambiar de estado?
+Los estados de los procesos son ***runnable***, ***running***, ***sleeping***, ***zombie***, ***used*** y ***unused***.
 Y están definidos en la estructura de procesos como, `p->state == RUNNABLE, RUNNING, SLEEPING, ZOMBIE, UNUSED, USED`.
-Los cambios de estado ocurren por las siguientes razones:
-- Al ****crearse un proceso*** se crea con el estado `runnable`.
+Los ***cambios de estado*** ocurren por las siguientes razones:
+- Al ***crearse un proceso*** se crea con el estado `runnable`.
 - Al ***planificarse***, los procesos pasan de _runnable_ a `running`.
-- Al ***esperar una operación*** de IO, pasa de `running` a `sleeping`. Y al finalizar la operación de IO, pasa a `runnable`.
+- Al ***esperar una operación*** de IO, pasa de `running` a `sleeping` (ya que se "bloquea"). Y al finalizar la operación de IO, pasa a `runnable`.
 - Al suceder una ***interrupción de tiempo*** o lo equivalente a que ***pase el quantum*** del planificador, el proceso pasa de `running` a `runnable`.
 - Al ***finalizar un proceso***, este pasa de `running` a `zombie` hasta que el proceso padre libera su memoria para pasar al estado `unused`.
 
- 3. ¿Qué es un ***quantum***? ¿Dónde se define en el código? ¿Cuánto dura un ***quantum**** en `xv6-riscv`?
+ 3. ¿Qué es un ***quantum***? ¿Dónde se define en el código? ¿Cuánto dura un ***quantum*** en `xv6-riscv`?
 Un **Quantum** es el tiempo transcurrido entre los Hardware Timer's Interrupts.
-En xv6 el código se define en `kernel/start.c` específicamente en la función `timerinit()`, acá preguntándole a **CLINT** (core-local interruptor) se obtiene en conjunto con el quantum, donde se generara la interrupción.
-Este quantum dura 1/10 de un segundo, o aproximadamente 10ms, según está definido en la variable `int interval = 1000000`.
+En `xv6` el código se define en `kernel/start.c` específicamente en la función `timerinit()`, acá preguntándole a **CLINT** (core-local interruptor) se obtiene en conjunto con el ***quantum***, donde se generara la interrupción.
+Este quantum dura ***1/10 de un segundo***, o aproximadamente 10ms, según está definido en la variable `int interval = 1000000`.
 
  4. ¿En qué parte del código ocurre el ***cambio de contexto*** en `xv6-riscv`? ¿En qué funciones un proceso deja de ser ejecutado? ¿En qué funciones se elige el nuevo proceso a ejecutar?
-El cambio de contexto ocurre en `kernel/proc.c`, en la función `sched()` y `scheduler()`, al llamarse a `swtch()`.
+El ***cambio de contexto*** ocurre en `kernel/proc.c`, en la función `sched()` y `scheduler()`, al llamarse a `swtch()`.
 Las funciones en las que un proceso deja de ser ejecutado son:
 - ***exit()***, porque sale de un proceso dejándolo en modo `zombie`, esto puede suceder mientras el proceso estaba en `running`.
 - ***yield()***, porque ***"deschedula"*** un proceso dejándolo en `runnable`.
@@ -687,7 +637,7 @@ Las función donde se elige el nuevo proceso a ejecutar es:
 - ***scheduler()***, porque este elige qué proceso se ejecuta.
 
  5. ¿El ***cambio de contexto consume tiempo de un quantum***?
-El cambio de contexto ocurre al principio del quantum. Esto afecta muy levemente al tiempo real que usa un proceso, ya que el cambio de contexto consume muy poco tiempo, y por ende muy poco tiempo del quantum es dedicado al cambio de contexto; el tiempo real que se usa para el proceso en cada quantum sería de (quantum_time - cambioDeContexto_time).
+El ***cambio de contexto*** ocurre al principio del ***quantum***. Esto afecta muy levemente al tiempo real que usa un proceso, ya que el ***cambio de contexto consume muy poco tiempo***, y por ende ***muy poco tiempo del quantum es dedicado al cambio de contexto***; el tiempo real que se usa para el proceso en cada quantum sería de (quantum_time - cambioDeContexto_time).
 Esto significa que puede haber casos donde, si el quantum es menor al tiempo que necesita el cambio de contexto, se gastaría todo en el cambio de contexto y no podría ejecutar el proceso.
 
 ---
