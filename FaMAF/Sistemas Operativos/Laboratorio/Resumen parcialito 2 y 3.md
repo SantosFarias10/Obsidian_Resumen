@@ -313,8 +313,8 @@ Las funciones para controlar los semaphores que hicimos son:
 ```c
 int sem_open(int sem, int value) {
   if (sem < 0 || sem >= MAX_SEMAPHORES || semaforo[sem].value != -1 || 
-  value < 0) {       // SI sem es menor que cero || sem es mayor que el numero                           de semaphores permitidos || si el valor es negativo                              entonces
-    return 0;        // El semaphore es invalido, retornamos cero que es el                              error
+  value < 0) {       // SI sem es menor que cero || sem es mayor que el numero de semaphores permitidos || si el valor es negativo entonces
+    return 0;        // El semaphore es invalido, retornamos cero que es el error
   }
 
   acquire(&(semaforo[sem].lock));      // Bloqueamos
@@ -327,12 +327,12 @@ int sem_open(int sem, int value) {
 - `int sem_close(int sem)`, libera el semáforo sem.  Si el semáforo es válido, lo cierra estableciendo su valor en `-1`. Retorna `1` si tiene éxito y `0` si falla.
 ```c
 int sem_close(int sem) {
-  if (sem < 0 || sem >= MAX_SEMAPHORES) {  // SI sem es menor que cero || sem es                                            mayor que el numero de semaphores                                                permitidos, entonces
+  if (sem < 0 || sem >= MAX_SEMAPHORES) {  // SI sem es menor que cero || sem es mayor que el numero de semaphores permitidos, entonces
     return 0;                              // El semaphore es invalido                                                      Retornamos 0 (o sea el error)
   }
   
   acquire(&(semaforo[sem].lock));   // Bloqueamos
-  semaforo[sem].value = -1;      //Le asignamos el valor -1 (o sea ¿no esta en                                    uso?)
+  semaforo[sem].value = -1;      //Le asignamos el valor -1 (o sea ¿no esta en uso?)
   release(&(semaforo[sem].lock));   // Desbloqueamos
 
   return 1;   // Retornamos 1 (exito)
@@ -346,7 +346,7 @@ int sem_up(int sem) {
   }
   acquire(&(semaforo[sem].lock));  // Bloqueamos
   
-  if(semaforo[sem].value == 0){  // Si el valor del semáforo es 0, se despiertan                                  los procesos que están esperando en este                                         semáforo.
+  if(semaforo[sem].value == 0){  // Si el valor del semáforo es 0, se despiertan los procesos que están esperando en este semáforo.
     wakeup(&(semaforo[sem])); //Despertamos el proceso
   }
   
@@ -367,7 +367,7 @@ int sem_down(int sem) {
   acquire(&(semaforo[sem].lock));  // Bloqueamos
 
   if(semaforo[sem].value == 0){
-    sleep(&(semaforo[sem]), &(semaforo[sem].lock));  // Si el valor del semáforo                                                      es 0, el proceso se pone a                                                       dormir hasta que el                                                              semáforo esté disponible.
+    sleep(&(semaforo[sem]), &(semaforo[sem].lock));  // Si el valor del semáforo es 0, el proceso se pone a dormir hasta que el semáforo esté disponible.
   }
 
   semaforo[sem].value--;  // Decrementamos el valor
@@ -383,7 +383,7 @@ int sem_down(int sem) {
 int sem_search(int value) {
   int sem = 0;
 
-  while(sem < MAX_SEMAPHORES && sem_open(sem, value) == 0) { //Va a salir si sem                                                              es menos al max de                                                               semaforos y si                                                                   logra abrirlo
+  while(sem < MAX_SEMAPHORES && sem_open(sem, value) == 0) { //Va a salir si sem es menos al max de semaforos y si logra abrirlo
     sem++;
   }
 
