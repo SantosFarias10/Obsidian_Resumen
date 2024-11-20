@@ -41,6 +41,8 @@ proc insert(in/out a: array[1..n] of T, In i: nat)
 	do (J > 1 ∧ a[J] < a[J-1]) ---->
 		swap(a, J-1, J)
 		J:= J-1
+	od
+end proc
 ```
 *{Post: a[1, i] está ordenado ∧ "a" es permutación de A}*
 

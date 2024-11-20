@@ -1,5 +1,5 @@
  - [x] Laboratorio 00
- - [ ] Laboratorio 01
+ - [x] Laboratorio 01
  - [ ] Laboratorio 02
  - [ ] Laboratorio 03
  - [ ] Laboratorio 04
