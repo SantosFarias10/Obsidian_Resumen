@@ -597,8 +597,8 @@ yield(void)
 ```
 ---
 ## Conceptos de quantum, ticks, interrupciones, panic, Context Switches
-- Los ***quantums*** son la cantidad de tiempo asignado a la ejecución de un proceso por el ***scheduler*** antes de que suceda el cambio de contexto. En xv6 es la variable `interval`, encontrada en `kernel/start.c`.
-- Los ***ticks*** son la cantidad de interrupciones por el timer que sucedieron desde el inicio del sistema. Por ejemplo la syscall `uptime()`.
+- Los ***quantums*** son la cantidad de tiempo asignado a la ejecución de un proceso por el ***scheduler*** antes de que suceda el cambio de contexto. En `xv6` es la variable `interval`, encontrada en `kernel/start.c`.
+- Los ***ticks*** son la ***cantidad de interrupciones por el timer*** que sucedieron desde el inicio del sistema. Por ejemplo la syscall `uptime()`.
 - Las ***interrupciones*** son un mecanismo por el cual el hardware interrumpe la ejecución de un proceso para devolverle el control a la CPU. Hay de muchos tipos, por ejemplo las de tiempo, que son las que cuentan los ticks.
 - ***Panic*** es un error fatal en el sistema operativo que provoca que colapse. Al sistema operativo entrar en modo panic, se detiene por completo y/o se reinicia. Estos suceden cuando se detecta una situación critica de la que no se puede recuperar, en nuestro caso con la implementación del planificador, se corrobora constantemente por ejemplo con `sched()` que no hayan problemas críticos con los procesos.
 - ***Context Switches*** es proceso mediante el cual un sistema operativo guarda el estado de un proceso o hilo y lo restaura posteriormente. Esto permite que múltiples procesos compartan una única CPU y es esencial para la multitarea en sistemas operativos modernos. Durante un cambio de contexto, el sistema operativo guarda el estado del proceso actual (como registros de CPU, punteros de pila, etc.) y carga el estado del siguiente proceso a ejecutar.
