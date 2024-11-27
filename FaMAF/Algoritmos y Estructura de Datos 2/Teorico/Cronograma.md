@@ -5,8 +5,8 @@
 - [x] 5) Tipos abstractos
 - [x] 6) TADs: Pilas y Colas
 - [x] 7) Arboles
-- [ ] 8) Algoritmos Voraces
+- [x] 8) Algoritmos Voraces
 - [ ] 9) Algoritmos Voraces sobre Grafos
 - [ ] 10) Backtracking
 - [ ] 11) Programación Dinámica
-- [ ] 12) Recorrida de Grafos
+- [ ] 12) Recorrida de Grafos}

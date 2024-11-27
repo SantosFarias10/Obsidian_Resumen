@@ -1,7 +1,7 @@
  - [x] Laboratorio 00
  - [x] Laboratorio 01
- - [ ] Laboratorio 02
- - [ ] Laboratorio 03
- - [ ] Laboratorio 04
+ - [x] Laboratorio 02
+ - [x] Laboratorio 03
+ - [x] Laboratorio 04
  - [ ] Laboratorio 05
  - [ ] Laboratorio 06
