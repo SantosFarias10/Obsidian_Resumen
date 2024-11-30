@@ -30,28 +30,30 @@ Hay dos grandes ideas de cómo resolverlo.
 ### Implementación del Algoritmo de Prim
 Podemos representar los grafos como una tupla con dos conjuntos: Uno para los vértices y otra para las aristas.
 ```LenguajeDeLaMateria
-type Vertex = Nat
+type Vertex = Nat     {- Vertice -}
 
-type Edge = tuple
+type Edge = tuple            {- Aristas -}
 				v1: Vertex
 				v2: Vertex
 				cost: Nat
 			end tuple
 
 type Graph = tuple
-				vertices: Set of Vertex
-				edges: Set of Edge
+				vertices: Set of Vertex    {- Conjunto de Vertices -}
+				edges: Set of Edge     {- Conjunto de Aristas -}
 			 end tuple
 
 fun Prim(G: Graph, k: Vertex) ret T: Set of Edge
 	var c: Edge
 	var C: Set of Vertex
+	
 	C:= copy_set(G.vertices)
 	elim(C, k)
 	T:= empty_set()
+	
 	do(not is_empty_set(C)) --->
 		c:= "Selecciono arista de costo mínimo tal que c.v1 ∈ C y c.v2 not∈ C, ó c.v2 ∈ C y c.v1 not∈ C"
-		if(member(c.v1, C)) then
+		if(member(c.v1, C)) then    {- ¿member? -}
 			elim(C, c.v1)
 		else
 			elim(C, c.v2)

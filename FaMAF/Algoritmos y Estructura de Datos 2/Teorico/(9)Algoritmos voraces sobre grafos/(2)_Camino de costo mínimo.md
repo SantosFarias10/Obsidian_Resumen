@@ -38,32 +38,37 @@
 ---
 ### El algoritmo
 - Asumiremos que el grafo viene dado por el conjunto de vértices V = {1, 2, . . . , n}
-- y los costos por una matriz L : array[1..n,1..n] of Nat,
-- que en L[i, j] mantiene el costo de la arista que va de ' i ' a ' j '.
-- En caso de no haber ninguna arista de ' i ' a ' j ', L[i, j] = ∞.
-- Asumimos L[j, j] = 0.
-- El algoritmo funciona también para grafos no dirigidos, simplemente se tiene L[i, j] = L[j, i] para todo par de vértices ' i ' y ' j '.
+- y los costos por una matriz `L: array[1..n,1..n] of Nat`,
+- que en `L[i, j]` mantiene el costo de la arista que va de ' i ' a ' j '.
+- En caso de no haber ninguna arista de ' i ' a ' j ', `L[i, j] = ∞`.
+- Asumimos `L[j, j] = 0`.
+- ***El algoritmo funciona también para grafos no dirigidos***, simplemente se tiene        `L[i, j] = L[j, i]` para todo par de vértices ' i ' y ' j '.
 - La versión que daremos del algoritmo, en vez de hallar el ***camino de costo mínimo*** desde ' v ' hasta cada uno de los demás, halla sólo el costo de dicho camino.
 - Es decir, halla el ***costo del camino de costo mínimo*** desde ' v ' hasta cada uno de los demás.
-- El resultado estará dado por un arreglo D: array[1..n] of Nat,
-- en D[j] devolverá el costo del camino de costo mínimo que va de ' v ' a ' j '.
+- El resultado estará dado por un arreglo `D: array[1..n] of Nat`,
+- en `D[j]` devolverá el costo del camino de costo mínimo que va de ' v ' a ' j '.
 - El conjunto C es el conjunto de los vértices hacia los que todavía desconocemos cuál es el camino de menor costo.
 ---
 ### Algoritmo de Dijkstra
 ```LenguajeDeLaMateria
 fun Dijkstra(L: array[1..n, 1..n] of Nat, v: Nat) ret D: array[1..n] of Nat
 	var c: Nat 
-	var C: Set of Nat 
+	var C: Set of Nat
+	
 	for (i := 1) to n do 
-		add(C,i) 
-	od 
+		add(C,i)
+	od
+	
 	elim(C,v) 
+	
 	for (j:= 1) to n do 
 		D[j]:= L[v,j] 
 	od 
+	
 	do (not is_empty_set(C)) --->
 		c:= “elijo elemento c de C tal que D[c] sea mínimo”
 		elim(C,c)
+		
 		for j in C do 
 			D[j]:= min(D[j],D[c]+L[c,j]) 
 		od
@@ -71,7 +76,7 @@ fun Dijkstra(L: array[1..n, 1..n] of Nat, v: Nat) ret D: array[1..n] of Nat
 end fun
 ```
 - La implementación sigue el esquema de los algoritmos voraces.
-- En cada paso, elijo el vértice c al que puedo llegar con menor costo.
+- En cada paso, elijo el vértice ' c ' al que puedo llegar con menor costo.
 - Luego actualizo el costo para llegar a cada uno de los demás vértices, habiendo “aprendido” el mejor camino para ir hasta ' c '.
 - Esta actualización se realiza calculando el mínimo entre lo que me costaba antes ir hasta cada vértice ' j ', y lo que me cuesta si voy primero a ' c ', y luego de ahí hasta ' j '.
 Modificando levemente la implementación dada, se puede obtener una versión que devuelve el camino hacia cada vértice, no solo su costo. (No se vio en detalle este año).

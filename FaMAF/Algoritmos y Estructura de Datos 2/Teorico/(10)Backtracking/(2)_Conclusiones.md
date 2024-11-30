@@ -1,0 +1,10 @@
+- Hemos visto soluciones a tres problemas.
+- En general, muy eficientes.
+- Por ejemplo, para el problema de la moneda, si queremos pagar el monto 90 con denominaciones 1, 5 y 10:
+	- `cambio(3, 90)` llama a `cambio(2, 90)` y `cambio(3, 80)`,
+	- `cambio(2,90)` llama a `cambio(1, 90)` y `cambio(2, 85)`,
+	- `cambio(2,85)` llama a `cambio(1,85)` y ***`cambio(2,80)`***,
+	- `cambio(3,80)` llama a ***`cambio(2,80)`*** y `cambio(3,70)`.
+- Se ve que `cambio(2, 80)` se calcula 2 veces.
+- Y muchos otros llamados se repiten, incluso varias veces.
+- Los algoritmos son exponenciales.
